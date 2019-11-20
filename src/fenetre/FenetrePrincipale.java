@@ -12,10 +12,6 @@ public class FenetrePrincipale extends JFrame {
     private static final String TITRE_FENETRE = "Laboratoire 3 : LOG121";
     private static final Dimension DIMENSION = new Dimension(900, 700);
 
-    public static void main(String args[]){
-        FenetrePrincipale fenetrePrincipale = new FenetrePrincipale();
-    }
-
     /**
      * Constructeuer de la fenêtre principale de l'application
      */
