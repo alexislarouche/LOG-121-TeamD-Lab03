@@ -22,8 +22,8 @@ public class View implements Observer
     }
 
     @Override
-    public void update(Object param)
+    public void update()
     {
-        //TODO : Paint the view content for it has been updated
+
     }
 }

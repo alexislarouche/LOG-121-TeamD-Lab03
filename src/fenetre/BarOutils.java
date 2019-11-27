@@ -1,6 +1,8 @@
 package fenetre;
 
 
+import command.Command;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -17,13 +19,15 @@ public class BarOutils extends JMenuBar {
     private static final long serialVersionUID = 1L;
     private static final String MENU_FICHIER_TITRE = "Fichier";
     private static final String MENU_FICHIER_OUVRIR = "Ouvrir Image";
+    private Command commandLoadImage;
 
 
     /**
      * Constructeur de la barre outils
      */
-    BarOutils(){
+    BarOutils(Command commandLoadImage){
         ajouterMenuFichier();
+        this.commandLoadImage = commandLoadImage;
     }
 
     /**
@@ -36,7 +40,7 @@ public class BarOutils extends JMenuBar {
         JMenuItem menuOuvrir = new JMenuItem(MENU_FICHIER_OUVRIR);
 
         menuOuvrir.addActionListener((ActionEvent e) -> {
-            ouvrirImage();
+            commandLoadImage.execute();
         });
 
         menuFichier.add(menuOuvrir);
@@ -45,40 +49,6 @@ public class BarOutils extends JMenuBar {
     }
 
 
-    /**
-     * Ouverture d'une image à l'aide d'un JFileChooser
-     * @return null
-     */
-    public void ouvrirImage(){
-        //Creation du fileChooser
-        JFileChooser fileChooser = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
-        fileChooser.setDialogTitle("Sélectionnez l'image à ouvrir");
-        fileChooser.setAcceptAllFileFilterUsed(false);
-        fileChooser.setApproveButtonText("Ouvrir");
 
-        //Creation des filtres
-        FileNameExtensionFilter filterPng = new FileNameExtensionFilter("Image PNG","png");
-        FileNameExtensionFilter filterJpg = new FileNameExtensionFilter("Image JPG","jpg");
-        //Application des filtres
-        fileChooser.addChoosableFileFilter(filterPng);
-        fileChooser.addChoosableFileFilter(filterJpg);
-
-
-        int returnValue = fileChooser.showOpenDialog(null);
-
-        if (returnValue == JFileChooser.APPROVE_OPTION) {
-
-            File selectedFile = fileChooser.getSelectedFile();
-            if(selectedFile.canRead()){
-                try {
-                    Image image = ImageIO.read(selectedFile);
-                    //TODO : Set the image as the Main picture of the application
-                }catch (IOException e){
-                    e.printStackTrace();
-                }
-            }
-
-        }
-    }
 
 }

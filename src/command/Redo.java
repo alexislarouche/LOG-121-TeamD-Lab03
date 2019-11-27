@@ -3,7 +3,7 @@ package command;
 public class Redo implements Command
 {
     @Override
-    public void execute(Object target)
+    public void execute()
     {
 
     }
