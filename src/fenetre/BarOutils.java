@@ -47,8 +47,4 @@ public class BarOutils extends JMenuBar {
 
         this.add(menuFichier);
     }
-
-
-
-
 }
