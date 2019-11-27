@@ -1,12 +1,13 @@
 package command;
 
 import mvc.Model;
+import mvc.ModelImage;
 
 public class LoadImage implements Command {
 
-    private Model model;
+    private ModelImage model;
 
-    public LoadImage(Model model) {
+    public LoadImage(ModelImage model) {
         this.model = model;
     }
 

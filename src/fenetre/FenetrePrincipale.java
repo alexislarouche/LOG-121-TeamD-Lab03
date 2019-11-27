@@ -3,6 +3,7 @@ package fenetre;
 import command.Command;
 import command.LoadImage;
 import mvc.Model;
+import mvc.ModelImage;
 import mvc.Observer;
 
 import javax.swing.*;
@@ -15,20 +16,20 @@ Fenêtre principale de l'application
 public class FenetrePrincipale extends JFrame implements Observer{
 
     private PanneauPrincipal panneau;
-    private Model model;
+    private ModelImage model;
     private static final String TITRE_FENETRE = "Laboratoire 3 : LOG121";
     private static final Dimension DIMENSION = new Dimension(500, 400);
 
     /**
      * Constructeur de la fenêtre principale de l'application
      */
-    public FenetrePrincipale(int x, int y, Model model){
+    public FenetrePrincipale(int x, int y, ModelImage model){
         setTitle(TITRE_FENETRE);
         this.model = model;
         createFenetre(x, y);
     }
 
-    public FenetrePrincipale(String title, int x, int y, Model model) {
+    public FenetrePrincipale(String title, int x, int y, ModelImage model) {
         setTitle(title);
         this.model = model;
         createFenetre(x, y);
