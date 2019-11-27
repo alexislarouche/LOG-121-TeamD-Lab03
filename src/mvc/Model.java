@@ -61,7 +61,6 @@ public class Model extends Observable {
      * Ouverture d'une image à l'aide d'un JFileChooser
      */
     public void ouvrirImage(){
-
         //Creation du fileChooser
         JFileChooser fileChooser = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
         fileChooser.setDialogTitle("Sélectionnez l'image à ouvrir");

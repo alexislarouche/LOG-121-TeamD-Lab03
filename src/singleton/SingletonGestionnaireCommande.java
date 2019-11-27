@@ -9,7 +9,6 @@ import java.util.Stack;
  * Voir énoncé.
  */
 public class SingletonGestionnaireCommande {
-
      private static SingletonGestionnaireCommande instance;
      private Stack<Command> stackCommand;
 
@@ -17,7 +16,7 @@ public class SingletonGestionnaireCommande {
           stackCommand = new Stack<>();
      }
 
-     public SingletonGestionnaireCommande getInstance() {
+     public static SingletonGestionnaireCommande getInstance() {
           return instance;
      }
 
