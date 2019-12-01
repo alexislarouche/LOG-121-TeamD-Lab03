@@ -1,9 +1,8 @@
 package fenetre;
 
-import command.Command;
-import command.LoadImage;
-import mvc.Model;
+import mvc.BackgroundImage;
 import mvc.Observer;
+import mvc.Perspective;
 
 import javax.swing.*;
 import java.awt.*;
@@ -11,25 +10,26 @@ import java.awt.event.*;
 
 public class FenetrePerspective extends JFrame implements Observer {
     private PanneauPrincipal panneau;
-    private Model model;
+    private Perspective perspective;
+    private BackgroundImage bgImage;
     private static final Dimension DIMENSION = new Dimension(500, 400);
 
-    public FenetrePerspective(String title, int x, int y, Model model) {
+    public FenetrePerspective(String title, int x, int y, BackgroundImage bgImage,Perspective perspective) {
         setTitle(title);
-        this.model = model;
+        this.perspective = perspective;
+        this.bgImage = bgImage;
         createFenetre(x, y);
     }
 
     private final void createFenetre(int x, int y) {
         panneau = new PanneauPrincipal();
 
-        Command loadImage = new LoadImage(model);
-        BarOutils barreOutils = new BarOutils(loadImage);
+        //BarOutils barreOutils = new BarOutils();
 
         setLayout(new BorderLayout());
 
         add(panneau, BorderLayout.CENTER);
-        add(barreOutils, BorderLayout.NORTH);
+        //add(barreOutils, BorderLayout.NORTH);
 
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setSize(DIMENSION);
@@ -65,15 +65,15 @@ public class FenetrePerspective extends JFrame implements Observer {
                 if (e.isControlDown()){
 
                     // set mouse position
-                    model.setCenterPoint(e.getPoint());
+                    perspective.setCenterPoint(e.getPoint());
 
                     // zoom in = x 1.1
                     // zoom out = / 1.1
                     double newScaleValue = e.getWheelRotation() < 0 ?
-                            model.getScale() * 1.1 : model.getScale() / 1.1;
+                            perspective.getScale() * 1.1 : perspective.getScale() / 1.1;
 
-                    model.setScale(newScaleValue);
-                    model.zoomImage();
+                    perspective.setScale(newScaleValue);
+                    perspective.zoomImage();
                 }
             }
         });
@@ -100,10 +100,10 @@ public class FenetrePerspective extends JFrame implements Observer {
     @Override
     public void update() {
         if (panneau.getBackgroundImage() == null){
-            panneau.setBackgroundImage(model.getImage());
+            panneau.setBackgroundImage(bgImage.getImage());
         }
         else{
-            panneau.setAffineTransform(model.getAt());
+            panneau.setAffineTransform(perspective.getAt());
         }
         repaint();
     }

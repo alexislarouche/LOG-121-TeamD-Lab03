@@ -2,8 +2,7 @@ package fenetre;
 
 import command.Command;
 import command.LoadImage;
-import command.Zoom;
-import mvc.Model;
+import mvc.BackgroundImage;
 import mvc.Observer;
 
 import javax.swing.*;
@@ -16,29 +15,23 @@ Fenêtre principale de l'application
 public class FenetrePrincipale extends JFrame implements Observer{
 
     private PanneauPrincipal panneau;
-    private Model model;
+    private BackgroundImage bgImage;
     private static final String TITRE_FENETRE = "Laboratoire 3 : LOG121";
     private static final Dimension DIMENSION = new Dimension(500, 400);
 
     /**
      * Constructeur de la fenêtre principale de l'application
      */
-    public FenetrePrincipale(int x, int y, Model model){
+    public FenetrePrincipale(int x, int y, BackgroundImage bgImage){
         setTitle(TITRE_FENETRE);
-        this.model = model;
-        createFenetre(x, y);
-    }
-
-    public FenetrePrincipale(String title, int x, int y, Model model) {
-        setTitle(title);
-        this.model = model;
+        this.bgImage = bgImage;
         createFenetre(x, y);
     }
 
     private final void createFenetre(int x, int y) {
         panneau = new PanneauPrincipal();
 
-        Command loadImage = new LoadImage(model);
+        Command loadImage = new LoadImage(bgImage);
         BarOutils barreOutils = new BarOutils(loadImage);
 
         setLayout(new BorderLayout());
@@ -55,60 +48,12 @@ public class FenetrePrincipale extends JFrame implements Observer{
 
         // Emp�cher la redimension de la fen�tre
         setResizable(false);
-
-        this.addMouseListener(new MouseAdapter() {
-
-            public void mousePressed(MouseEvent e) {
-                //TODO : Set MousePressedEvents (if any)
-            }
-
-
-            public void mouseReleased(MouseEvent e) {
-                //TODO : Set MouseReleasedEvents (if any)
-            }
-
-        });
-
-        this.addMouseMotionListener(new MouseMotionAdapter() {
-
-            public void mouseDragged(MouseEvent e) {
-                super.mouseDragged(e);
-                //TODO : Set MouseDraggedEvents (if any)
-            }
-        });
-
-        this.addMouseWheelListener(new MouseWheelListener() {
-
-            public void mouseWheelMoved(MouseWheelEvent e) {
-                //TODO : Set MouseWheelMovedEvents (if any)
-            }
-
-        });
-
-        this.addKeyListener(new KeyListener() {
-
-
-            @Override
-            public void keyTyped(KeyEvent e) {
-                //TODO : Set KeyTypedEvents (if any)
-            }
-
-            @Override
-            public void keyPressed(KeyEvent e) {
-                //TODO : Set KeyPressedEvents (if any)
-            }
-
-            @Override
-            public void keyReleased(KeyEvent e) {
-                //TODO : Set KeyReleasedEvents (if any)
-            }
-        });
     }
 
     @Override
     public void update() {
         if (panneau.getBackgroundImage() == null) {
-            panneau.setBackgroundImage(model.getImage());
+            panneau.setBackgroundImage(bgImage.getImage());
             repaint();
         }
     }

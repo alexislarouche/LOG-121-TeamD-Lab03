@@ -1,12 +1,12 @@
 package command;
 
-import mvc.Model;
+import mvc.Perspective;
 
 public class Zoom implements Command
 {
-    private Model model;
+    private Perspective model;
 
-    public Zoom(Model model){
+    public Zoom(Perspective model){
         this.model = model;
     }
 
