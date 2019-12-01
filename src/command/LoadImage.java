@@ -1,18 +1,18 @@
 package command;
 
-import mvc.Model;
+import mvc.BackgroundImage;
 
 public class LoadImage implements Command {
 
-    private Model model;
+    private BackgroundImage bgImage;
 
-    public LoadImage(Model model) {
-        this.model = model;
+    public LoadImage(BackgroundImage bgImage) {
+        this.bgImage = bgImage;
     }
 
     @Override
     public void execute()
     {
-        model.ouvrirImage();
+        bgImage.ouvrirImage();
     }
 }
