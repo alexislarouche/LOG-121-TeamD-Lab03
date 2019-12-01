@@ -22,6 +22,9 @@ public class BarOutils extends JMenuBar {
     private Command commandLoadImage;
 
 
+    BarOutils(){
+    }
+
     /**
      * Constructeur de la barre outils
      */

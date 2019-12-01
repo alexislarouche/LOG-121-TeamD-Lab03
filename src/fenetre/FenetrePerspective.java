@@ -1,55 +1,58 @@
 package fenetre;
 
 import command.Command;
-import command.LoadImage;
-import mvc.Model;
+import command.Translate;
+import command.Zoom;
+import mvc.BackgroundImage;
 import mvc.Observer;
+import mvc.Perspective;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.awt.geom.Point2D;
 
 public class FenetrePerspective extends JFrame implements Observer {
     private PanneauPrincipal panneau;
-    private Model model;
+    private Perspective perspective;
+    private BackgroundImage bgImage;
     private static final Dimension DIMENSION = new Dimension(500, 400);
 
-    public FenetrePerspective(String title, int x, int y, Model model) {
+    public FenetrePerspective(String title, int x, int y, BackgroundImage bgImage,Perspective perspective) {
         setTitle(title);
-        this.model = model;
+        this.perspective = perspective;
+        this.bgImage = bgImage;
         createFenetre(x, y);
     }
 
     private final void createFenetre(int x, int y) {
         panneau = new PanneauPrincipal();
 
-        Command loadImage = new LoadImage(model);
-        BarOutils barreOutils = new BarOutils(loadImage);
+        //BarOutils barreOutils = new BarOutils();
 
         setLayout(new BorderLayout());
 
         add(panneau, BorderLayout.CENTER);
-        add(barreOutils, BorderLayout.NORTH);
+        //add(barreOutils, BorderLayout.NORTH);
+
+        Command zoomImage = new Zoom(perspective);
+        Command translateImage = new Translate(perspective);
 
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setSize(DIMENSION);
-        // Rendre la fenêtre visible
         setVisible(true);
-
         setLocation(x,y);
-
-        // Emp�cher la redimension de la fen�tre
         setResizable(false);
 
         this.addMouseListener(new MouseAdapter() {
 
             public void mousePressed(MouseEvent e) {
-                //TODO : Set MousePressedEvents (if any)
+                // set mouse position before dragging
+                perspective.setStartPoint(e.getPoint());
             }
 
-
             public void mouseReleased(MouseEvent e) {
-                //TODO : Set MouseReleasedEvents (if any)
+                repaint();
             }
 
         });
@@ -58,7 +61,9 @@ public class FenetrePerspective extends JFrame implements Observer {
 
             public void mouseDragged(MouseEvent e) {
                 super.mouseDragged(e);
-                //TODO : Set MouseDraggedEvents (if any)
+                // set mouse position after dragging
+                perspective.setEndPoint(e.getPoint());
+                translateImage.execute();
             }
         });
 
@@ -66,12 +71,23 @@ public class FenetrePerspective extends JFrame implements Observer {
 
             public void mouseWheelMoved(MouseWheelEvent e) {
                 //TODO : Set MouseWheelMovedEvents (if any)
-            }
+                if (e.isControlDown()){
 
+                    // set mouse position
+                    perspective.setCenterPoint(e.getPoint());
+
+                    // zoom in = x 1.1
+                    // zoom out = / 1.1
+                    double newScaleValue = e.getWheelRotation() < 0 ?
+                            perspective.getScale() * 1.1 : perspective.getScale() / 1.1;
+
+                    perspective.setScale(newScaleValue);
+                    zoomImage.execute();
+                }
+            }
         });
 
         this.addKeyListener(new KeyListener() {
-
 
             @Override
             public void keyTyped(KeyEvent e) {
@@ -92,7 +108,12 @@ public class FenetrePerspective extends JFrame implements Observer {
 
     @Override
     public void update() {
-        panneau.setBackgroundImage(model.getImage());
+        if (panneau.getBackgroundImage() == null){
+            panneau.setBackgroundImage(bgImage.getImage());
+        }
+        else{
+            panneau.setAffineTransform(perspective.getAt());
+        }
         repaint();
     }
 }
