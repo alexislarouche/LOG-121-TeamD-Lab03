@@ -4,47 +4,12 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.filechooser.FileSystemView;
-import java.awt.geom.Point2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
-public class Model extends Observable {
-    private Point2D centerPoint;
-    private double scale;
+public class BackgroundImage extends Observable{
     private BufferedImage image;
-
-    public Model() {}
-
-    public Model(double x, double y, double scale){
-        this.centerPoint = new Point2D.Double(x,y);
-        this.scale = scale;
-    }
-
-    public Model(Point2D centerPoint, double scale){
-        this.centerPoint = centerPoint;
-        this.scale = scale;
-    }
-
-    public Point2D getCenterPoint()
-    {
-        return centerPoint;
-    }
-
-    public void setCenterPoint(Point2D centerPoint)
-    {
-        this.centerPoint = centerPoint;
-    }
-
-    public double getScale()
-    {
-        return scale;
-    }
-
-    public void setScale(double scale)
-    {
-        this.scale = scale;
-    }
 
     public BufferedImage getImage()
     {
