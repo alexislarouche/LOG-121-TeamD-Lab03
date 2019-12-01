@@ -1,5 +1,8 @@
 package fenetre;
 
+import command.Command;
+import command.Translate;
+import command.Zoom;
 import mvc.BackgroundImage;
 import mvc.Observer;
 import mvc.Perspective;
@@ -7,6 +10,7 @@ import mvc.Perspective;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.awt.geom.Point2D;
 
 public class FenetrePerspective extends JFrame implements Observer {
     private PanneauPrincipal panneau;
@@ -31,6 +35,9 @@ public class FenetrePerspective extends JFrame implements Observer {
         add(panneau, BorderLayout.CENTER);
         //add(barreOutils, BorderLayout.NORTH);
 
+        Command zoomImage = new Zoom(perspective);
+        Command translateImage = new Translate(perspective);
+
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setSize(DIMENSION);
         setVisible(true);
@@ -40,12 +47,12 @@ public class FenetrePerspective extends JFrame implements Observer {
         this.addMouseListener(new MouseAdapter() {
 
             public void mousePressed(MouseEvent e) {
-                //TODO : Set MousePressedEvents (if any)
+                // set mouse position before dragging
+                perspective.setStartPoint(e.getPoint());
             }
 
-
             public void mouseReleased(MouseEvent e) {
-                //TODO : Set MouseReleasedEvents (if any)
+                repaint();
             }
 
         });
@@ -54,7 +61,9 @@ public class FenetrePerspective extends JFrame implements Observer {
 
             public void mouseDragged(MouseEvent e) {
                 super.mouseDragged(e);
-                //TODO : Set MouseDraggedEvents (if any)
+                // set mouse position after dragging
+                perspective.setEndPoint(e.getPoint());
+                translateImage.execute();
             }
         });
 
@@ -73,7 +82,7 @@ public class FenetrePerspective extends JFrame implements Observer {
                             perspective.getScale() * 1.1 : perspective.getScale() / 1.1;
 
                     perspective.setScale(newScaleValue);
-                    perspective.zoomImage();
+                    zoomImage.execute();
                 }
             }
         });
