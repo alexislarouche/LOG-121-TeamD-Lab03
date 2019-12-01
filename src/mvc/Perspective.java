@@ -8,7 +8,8 @@ public class Perspective extends Observable{
     private Point2D centerPoint;
     private Point2D startPoint;
     private Point2D endPoint;
-    private double scale = 1.0f;
+    private double scale = 1;
+    private double previousScale = 1;
     private BufferedImage image;
     private AffineTransform at;
 
@@ -74,15 +75,25 @@ public class Perspective extends Observable{
         super.notifyObservers();
     }
 
+    private double  xOffset, yOffset;
+
     public void zoomImage() {
         // adjust because of toolbar and blank space between each view
         double adjustedX =  centerPoint.getX() - 8;
         double adjustedY =  centerPoint.getY();
 
+        double scaleDiv = scale / previousScale;
+
+        xOffset = scaleDiv * xOffset + (1 - scaleDiv) * adjustedX;
+        yOffset = scaleDiv * yOffset + (1 - scaleDiv) * adjustedY;
+
+
         AffineTransform at = new AffineTransform();
-        at.translate(adjustedX, adjustedY);
+        at.translate(xOffset, yOffset);
         at.scale(scale, scale);
-        at.translate(-adjustedX, -adjustedY);
+        //at.translate(-xOffset, -yOffset);
+
+        previousScale = scale;
 
         setImageWithTransformation(image, at);
     }
@@ -93,7 +104,7 @@ public class Perspective extends Observable{
         double x = getEndPoint().getX() - getStartPoint().getX();
         double y = getEndPoint().getY() - getStartPoint().getY();
 
-        at.translate(x,y);
+        at.translate(x + xOffset,y + yOffset);
         at.scale(scale, scale);
 
         setImageWithTransformation(image, at);
