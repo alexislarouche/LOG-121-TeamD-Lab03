@@ -33,12 +33,8 @@ public class FenetrePerspective extends JFrame implements Observer {
 
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setSize(DIMENSION);
-        // Rendre la fenêtre visible
         setVisible(true);
-
         setLocation(x,y);
-
-        // Emp�cher la redimension de la fen�tre
         setResizable(false);
 
         this.addMouseListener(new MouseAdapter() {
@@ -66,12 +62,23 @@ public class FenetrePerspective extends JFrame implements Observer {
 
             public void mouseWheelMoved(MouseWheelEvent e) {
                 //TODO : Set MouseWheelMovedEvents (if any)
-            }
+                if (e.isControlDown()){
 
+                    // set mouse position
+                    model.setCenterPoint(e.getPoint());
+
+                    // zoom in = x 1.1
+                    // zoom out = / 1.1
+                    double newScaleValue = e.getWheelRotation() < 0 ?
+                            model.getScale() * 1.1 : model.getScale() / 1.1;
+
+                    model.setScale(newScaleValue);
+                    model.zoomImage();
+                }
+            }
         });
 
         this.addKeyListener(new KeyListener() {
-
 
             @Override
             public void keyTyped(KeyEvent e) {
@@ -92,7 +99,12 @@ public class FenetrePerspective extends JFrame implements Observer {
 
     @Override
     public void update() {
-        panneau.setBackgroundImage(model.getImage());
+        if (panneau.getBackgroundImage() == null){
+            panneau.setBackgroundImage(model.getImage());
+        }
+        else{
+            panneau.setAffineTransform(model.getAt());
+        }
         repaint();
     }
 }

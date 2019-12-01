@@ -4,15 +4,19 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.filechooser.FileSystemView;
+import java.awt.*;
+import java.awt.geom.AffineTransform;
 import java.awt.geom.Point2D;
 import java.awt.image.BufferedImage;
+import java.awt.image.RenderedImage;
 import java.io.File;
 import java.io.IOException;
 
 public class Model extends Observable {
     private Point2D centerPoint;
-    private double scale;
+    private double scale = 1.0f;
     private BufferedImage image;
+    private AffineTransform at;
 
     public Model() {}
 
@@ -51,9 +55,17 @@ public class Model extends Observable {
         return image;
     }
 
+    public AffineTransform getAt(){ return  at;}
+
     public void setImage(BufferedImage image)
     {
         this.image = image;
+        super.notifyObservers();
+    }
+
+    public void setImageWithTransformation(BufferedImage image, AffineTransform at){
+        this.image = image;
+        this.at = at;
         super.notifyObservers();
     }
 
@@ -88,5 +100,19 @@ public class Model extends Observable {
                 }
             }
         }
+    }
+
+    public void zoomImage() {
+
+        // adjust because of toolbar and blank space between each view
+        double adjustedX =  centerPoint.getX() - 8;
+        double adjustedY =  centerPoint.getY() - 53;
+
+        AffineTransform at = new AffineTransform();
+        at.translate(adjustedX, adjustedY);
+        at.scale(scale, scale);
+        at.translate(-adjustedX, -adjustedY);
+
+        setImageWithTransformation(image, at);
     }
 }

@@ -2,6 +2,7 @@ package fenetre;
 
 import command.Command;
 import command.LoadImage;
+import command.Zoom;
 import mvc.Model;
 import mvc.Observer;
 
@@ -106,7 +107,9 @@ public class FenetrePrincipale extends JFrame implements Observer{
 
     @Override
     public void update() {
-        panneau.setBackgroundImage(model.getImage());
-        repaint();
+        if (panneau.getBackgroundImage() == null) {
+            panneau.setBackgroundImage(model.getImage());
+            repaint();
+        }
     }
 }
