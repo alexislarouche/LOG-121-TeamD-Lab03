@@ -10,7 +10,6 @@ import mvc.Perspective;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.awt.geom.Point2D;
 
 public class FenetrePerspective extends JFrame implements Observer {
     private PanneauPrincipal panneau;
@@ -28,12 +27,9 @@ public class FenetrePerspective extends JFrame implements Observer {
     private final void createFenetre(int x, int y) {
         panneau = new PanneauPrincipal();
 
-        //BarOutils barreOutils = new BarOutils();
-
         setLayout(new BorderLayout());
 
         add(panneau, BorderLayout.CENTER);
-        //add(barreOutils, BorderLayout.NORTH);
 
         Command zoomImage = new Zoom(perspective);
         Command translateImage = new Translate(perspective);
@@ -47,12 +43,15 @@ public class FenetrePerspective extends JFrame implements Observer {
         this.addMouseListener(new MouseAdapter() {
 
             public void mousePressed(MouseEvent e) {
-                // set mouse position before dragging
+                perspective.setMouseReleased(false);
+                // on set la position de la souris lorsqu'on appuie (sans
+                // relacher)
                 perspective.setStartPoint(e.getPoint());
             }
 
             public void mouseReleased(MouseEvent e) {
-                repaint();
+                perspective.setMouseReleased(true);
+                translateImage.execute();
             }
 
         });
@@ -69,8 +68,12 @@ public class FenetrePerspective extends JFrame implements Observer {
 
         this.addMouseWheelListener(new MouseWheelListener() {
 
+            /**
+             * La commande zoom est invoqué en activant la roulette de la
+             * souris lorsqu'on maintient la touche CTRL
+             * @param e l'évenement qui déclenche la méthode
+             */
             public void mouseWheelMoved(MouseWheelEvent e) {
-                //TODO : Set MouseWheelMovedEvents (if any)
                 if (e.isControlDown()){
 
                     // set mouse position
@@ -81,6 +84,7 @@ public class FenetrePerspective extends JFrame implements Observer {
                     double newScaleValue = e.getWheelRotation() < 0 ?
                             perspective.getScale() * 1.1 : perspective.getScale() / 1.1;
 
+                    // on set le nouveau facteur de zoom
                     perspective.setScale(newScaleValue);
                     zoomImage.execute();
                 }
@@ -108,9 +112,11 @@ public class FenetrePerspective extends JFrame implements Observer {
 
     @Override
     public void update() {
+        // pour afficher l'image qu'on a chargé
         if (panneau.getBackgroundImage() == null){
             panneau.setBackgroundImage(bgImage.getImage());
         }
+        // pour appliquer les transformations
         else{
             panneau.setAffineTransform(perspective.getAt());
         }
