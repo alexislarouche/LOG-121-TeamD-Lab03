@@ -15,4 +15,9 @@ public class Zoom implements Command
     {
         model.zoomImage();
     }
+
+    @Override
+    public void changeModel(Perspective model) {
+        this.model = model;
+    }
 }

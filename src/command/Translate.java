@@ -15,4 +15,9 @@ public class Translate implements Command
     {
         model.translateImage();
     }
+
+    @Override
+    public void changeModel(Perspective model) {
+        this.model = model;
+    }
 }
