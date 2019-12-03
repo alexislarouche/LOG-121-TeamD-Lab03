@@ -2,7 +2,7 @@ package view;
 
 import controller.Command;
 import model.Perspective;
-import singleton.AppState;
+import state.AppState;
 import singleton.Mementos;
 
 import javax.swing.*;

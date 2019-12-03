@@ -1,4 +1,4 @@
-package singleton;
+package state;
 
 import controller.Command;
 import model.Perspective;

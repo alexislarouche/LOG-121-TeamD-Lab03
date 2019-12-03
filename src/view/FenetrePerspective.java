@@ -4,7 +4,7 @@ import controller.*;
 import model.BackgroundImage;
 import observer.Observer;
 import model.Perspective;
-import singleton.AppState;
+import state.AppState;
 import singleton.Mementos;
 
 import javax.swing.*;
@@ -95,9 +95,9 @@ public class FenetrePerspective extends JFrame implements Observer {
                     double newScaleValue = 0;
 
                     if(e.getWheelRotation() < 0) {
-                        newScaleValue = perspectiveModel.getScale() * 1.5;
+                        newScaleValue = perspectiveModel.getScale() * 1.1;
                     } else {
-                        newScaleValue = perspectiveModel.getScale() / 1.5;
+                        newScaleValue = perspectiveModel.getScale() / 1.1;
                     }
 
                     // on set le nouveau facteur de zoom

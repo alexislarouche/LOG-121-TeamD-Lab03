@@ -1,7 +1,7 @@
 package controller;
 
 import model.Perspective;
-import singleton.AppState;
+import state.AppState;
 import singleton.Mementos;
 
 public class Redo implements Command

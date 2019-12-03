@@ -1,4 +1,4 @@
-package singleton;
+package state;
 
 import view.FenetrePerspective;
 import view.FenetrePrincipale;
