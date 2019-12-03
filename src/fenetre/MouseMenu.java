@@ -37,7 +37,7 @@ public class MouseMenu extends JPopupMenu {
         public void actionPerformed(ActionEvent e) {
             if(e.getActionCommand() == "Zoom in") {
                 perspectiveModel.setCenterPoint(mouseLocation);
-                perspectiveModel.setScale(perspectiveModel.getScale() / 1.5);
+                perspectiveModel.setScale(perspectiveModel.getScale() * 1.5);
                 zoomCommand.execute();
                 AppState appState = new AppState(perspectiveModel, zoomCommand, true);
                 Mementos.getInstance().setCurrentAppState(appState);

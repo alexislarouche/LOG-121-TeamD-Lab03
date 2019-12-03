@@ -31,7 +31,7 @@ public class FenetrePerspective extends JFrame implements Observer {
 
         setLayout(new BorderLayout());
 
-        add(panneau, BorderLayout.CENTER);
+
 
         Command zoomImage = new Zoom(perspectiveModel);
         Command translateImage = new Translate(perspectiveModel);
@@ -40,14 +40,14 @@ public class FenetrePerspective extends JFrame implements Observer {
 
         mouseMenu = new MouseMenu(perspectiveModel, zoomImage);
         panneau.setComponentPopupMenu(mouseMenu);
-
+        add(panneau, BorderLayout.CENTER);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setSize(DIMENSION);
         setVisible(true);
         setLocation(x,y);
         setResizable(false);
 
-        this.addMouseListener(new MouseAdapter() {
+        panneau.addMouseListener(new MouseAdapter() {
 
             public void mousePressed(MouseEvent e) {
                 perspectiveModel.setMouseReleased(false);
@@ -66,7 +66,7 @@ public class FenetrePerspective extends JFrame implements Observer {
 
         });
 
-        this.addMouseMotionListener(new MouseMotionAdapter() {
+        panneau.addMouseMotionListener(new MouseMotionAdapter() {
 
             public void mouseDragged(MouseEvent e) {
                 super.mouseDragged(e);
@@ -77,7 +77,7 @@ public class FenetrePerspective extends JFrame implements Observer {
             }
         });
 
-        this.addMouseWheelListener(new MouseWheelListener() {
+        panneau.addMouseWheelListener(new MouseWheelListener() {
 
             /**
              * La commande zoom est invoqué en activant la roulette de la
