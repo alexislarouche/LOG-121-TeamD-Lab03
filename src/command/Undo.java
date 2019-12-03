@@ -1,10 +1,8 @@
 package command;
 
-import mvc.Perspective;
+import model.Perspective;
 import singleton.AppState;
 import singleton.Mementos;
-
-import java.awt.geom.Point2D;
 
 public class Undo implements Command
 {

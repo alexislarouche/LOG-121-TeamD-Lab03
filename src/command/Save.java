@@ -1,6 +1,6 @@
 package command;
 
-import mvc.Perspective;
+import model.Perspective;
 
 public class Save implements Command
 {

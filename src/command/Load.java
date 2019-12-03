@@ -1,6 +1,6 @@
 package command;
 
-import mvc.Perspective;
+import model.Perspective;
 
 public class Load implements Command
 {

@@ -26,7 +26,7 @@ public class PanneauPrincipal extends JPanel{
         super.paintComponent(g);
 
         // si pas de transformations, donc on dessine l'image de base
-        if (affineTransform == null){
+        if (affineTransform == null) {
             g.drawImage(backgroundImage,0,0, this);
         }
         // s'il y a une transformation

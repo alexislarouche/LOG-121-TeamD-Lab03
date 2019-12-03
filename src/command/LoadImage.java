@@ -1,9 +1,7 @@
 package command;
 
-import mvc.BackgroundImage;
-import mvc.Perspective;
-import singleton.AppState;
-import singleton.Mementos;
+import model.BackgroundImage;
+import model.Perspective;
 
 public class LoadImage implements Command {
 

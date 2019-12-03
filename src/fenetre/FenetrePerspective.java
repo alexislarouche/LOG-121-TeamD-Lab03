@@ -1,42 +1,45 @@
 package fenetre;
 
 import command.*;
-import mvc.BackgroundImage;
-import mvc.Observer;
-import mvc.Perspective;
+import model.BackgroundImage;
+import observer.Observer;
+import model.Perspective;
 import singleton.AppState;
 import singleton.Mementos;
-import singleton.SingletonGestionnaireCommande;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.awt.geom.Point2D;
 
 public class FenetrePerspective extends JFrame implements Observer {
     private PanneauPrincipal panneau;
-    private Perspective perspective;
+    private Perspective perspectiveModel;
     private BackgroundImage bgImage;
+    private MouseMenu mouseMenu;
     private static final Dimension DIMENSION = new Dimension(500, 400);
 
-    public FenetrePerspective(String title, int x, int y, BackgroundImage bgImage,Perspective perspective) {
+    public FenetrePerspective(String title, int x, int y, BackgroundImage bgImage,Perspective perspectiveModel) {
         setTitle(title);
-        this.perspective = perspective;
+        this.perspectiveModel = perspectiveModel;
         this.bgImage = bgImage;
         createFenetre(x, y);
     }
 
     private final void createFenetre(int x, int y) {
+
         panneau = new PanneauPrincipal();
 
         setLayout(new BorderLayout());
 
         add(panneau, BorderLayout.CENTER);
 
-        Command zoomImage = new Zoom(perspective);
-        Command translateImage = new Translate(perspective);
+        Command zoomImage = new Zoom(perspectiveModel);
+        Command translateImage = new Translate(perspectiveModel);
         Command undoChange = new Undo();
         Command redoChange = new Redo();
+
+        mouseMenu = new MouseMenu(perspectiveModel, zoomImage);
+        panneau.setComponentPopupMenu(mouseMenu);
 
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setSize(DIMENSION);
@@ -47,17 +50,17 @@ public class FenetrePerspective extends JFrame implements Observer {
         this.addMouseListener(new MouseAdapter() {
 
             public void mousePressed(MouseEvent e) {
-                perspective.setMouseReleased(false);
+                perspectiveModel.setMouseReleased(false);
                 // on set la position de la souris lorsqu'on appuie (sans
                 // relacher)
-                perspective.setStartPoint(e.getPoint());
+                perspectiveModel.setStartPoint(e.getPoint());
             }
 
             public void mouseReleased(MouseEvent e) {
-                perspective.setMouseReleased(true);
-                perspective.setEndPoint(e.getPoint());
+                perspectiveModel.setMouseReleased(true);
+                perspectiveModel.setEndPoint(e.getPoint());
                 translateImage.execute();
-                AppState appState = new AppState(perspective, translateImage, false);
+                AppState appState = new AppState(perspectiveModel, translateImage, false);
                 Mementos.getInstance().setCurrentAppState(appState);
             }
 
@@ -67,7 +70,7 @@ public class FenetrePerspective extends JFrame implements Observer {
 
             public void mouseDragged(MouseEvent e) {
                 super.mouseDragged(e);
-                perspective.setEndPoint(e.getPoint());
+                perspectiveModel.setEndPoint(e.getPoint());
                 // set mouse position after dragging
                 translateImage.execute();
 
@@ -85,17 +88,20 @@ public class FenetrePerspective extends JFrame implements Observer {
                 if (e.isControlDown()){
 
                     // set mouse position
-                    perspective.setCenterPoint(e.getPoint());
+                    perspectiveModel.setCenterPoint(e.getPoint());
 
-                    // zoom in = x 1.1
-                    // zoom out = / 1.1
-                    double newScaleValue = e.getWheelRotation() < 0 ?
-                            perspective.getScale() * 1.5 : perspective.getScale() / 1.5;
+                    double newScaleValue = 0;
+
+                    if(e.getWheelRotation() < 0) {
+                        newScaleValue = perspectiveModel.getScale() * 1.5;
+                    } else {
+                        newScaleValue = perspectiveModel.getScale() / 1.5;
+                    }
 
                     // on set le nouveau facteur de zoom
-                    perspective.setScale(newScaleValue);
+                    perspectiveModel.setScale(newScaleValue);
                     zoomImage.execute();
-                    AppState appState = new AppState(perspective, zoomImage, true);
+                    AppState appState = new AppState(perspectiveModel, zoomImage, true);
                     Mementos.getInstance().setCurrentAppState(appState);
                 }
             }
@@ -133,7 +139,7 @@ public class FenetrePerspective extends JFrame implements Observer {
         }
         // pour appliquer les transformations
         else{
-            panneau.setAffineTransform(perspective.getAt());
+            panneau.setAffineTransform(perspectiveModel.getAt());
         }
         repaint();
     }

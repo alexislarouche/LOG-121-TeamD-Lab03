@@ -2,8 +2,8 @@ package singleton;
 
 import fenetre.FenetrePerspective;
 import fenetre.FenetrePrincipale;
-import mvc.BackgroundImage;
-import mvc.Perspective;
+import model.BackgroundImage;
+import model.Perspective;
 
 public class AppEngine
 {

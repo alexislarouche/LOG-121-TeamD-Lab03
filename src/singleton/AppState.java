@@ -1,11 +1,9 @@
 package singleton;
 
 import command.Command;
-import mvc.Perspective;
+import model.Perspective;
 
-import java.awt.*;
 import java.awt.geom.Point2D;
-import java.util.Stack;
 
 public class AppState
 {
