@@ -90,7 +90,7 @@ public class FenetrePerspective extends JFrame implements Observer {
                     // zoom in = x 1.1
                     // zoom out = / 1.1
                     double newScaleValue = e.getWheelRotation() < 0 ?
-                            perspective.getScale() * 1.1 : perspective.getScale() / 1.1;
+                            perspective.getScale() * 1.5 : perspective.getScale() / 1.5;
 
                     // on set le nouveau facteur de zoom
                     perspective.setScale(newScaleValue);
