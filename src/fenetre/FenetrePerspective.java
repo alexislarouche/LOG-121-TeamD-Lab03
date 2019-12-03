@@ -1,9 +1,6 @@
 package fenetre;
 
-import command.Command;
-import command.Translate;
-import command.Undo;
-import command.Zoom;
+import command.*;
 import mvc.BackgroundImage;
 import mvc.Observer;
 import mvc.Perspective;
@@ -14,6 +11,7 @@ import singleton.SingletonGestionnaireCommande;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.awt.geom.Point2D;
 
 public class FenetrePerspective extends JFrame implements Observer {
     private PanneauPrincipal panneau;
@@ -38,6 +36,7 @@ public class FenetrePerspective extends JFrame implements Observer {
         Command zoomImage = new Zoom(perspective);
         Command translateImage = new Translate(perspective);
         Command undoChange = new Undo();
+        Command redoChange = new Redo();
 
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setSize(DIMENSION);
@@ -56,9 +55,14 @@ public class FenetrePerspective extends JFrame implements Observer {
 
             public void mouseReleased(MouseEvent e) {
                 perspective.setMouseReleased(true);
+                perspective.setEndPoint(e.getPoint());
                 translateImage.execute();
-                Perspective temp = perspective;
-                AppState appState = new AppState(temp, bgImage.getImage(), translateImage);
+//                Perspective copyPerspective = new Perspective(perspective);
+//                Point2D startVal = (Point2D) perspective.getStartPoint().clone();
+//                Point2D endVal = (Point2D) perspective.getEndPoint().clone();
+//                double xOffset = perspective.getXOffset();
+//                double yOffset = perspective.getYOffset();
+                AppState appState = new AppState(perspective, translateImage);
                 Mementos.getInstance().setCurrentAppState(appState);
             }
 
@@ -68,9 +72,10 @@ public class FenetrePerspective extends JFrame implements Observer {
 
             public void mouseDragged(MouseEvent e) {
                 super.mouseDragged(e);
-                // set mouse position after dragging
                 perspective.setEndPoint(e.getPoint());
+                // set mouse position after dragging
                 translateImage.execute();
+
             }
         });
 
@@ -108,10 +113,11 @@ public class FenetrePerspective extends JFrame implements Observer {
 
             @Override
             public void keyPressed(KeyEvent e) {
-                if(e.isControlDown()){
-
+                if((e.getKeyCode() == KeyEvent.VK_Z)  && e.isControlDown()){
                     undoChange.execute();
-                    //char car = e.getKeyChar();
+                }
+                if((e.getKeyCode() == KeyEvent.VK_Y)  && e.isControlDown()){
+                    redoChange.execute();
                 }
             }
 

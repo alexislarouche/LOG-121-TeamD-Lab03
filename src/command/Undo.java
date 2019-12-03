@@ -14,14 +14,14 @@ public class Undo implements Command
     @Override
     public void execute()
     {
-       AppState previousState = Mementos.getInstance().getPreviousState();
-       this.model = previousState.getPerspective();
-        Point2D temp2DPoint = model.getEndPoint();
-        model.setEndPoint(model.getStartPoint());
-        model.setStartPoint(temp2DPoint);
-        previousState.getCommand().changeModel(model);
-        previousState.getCommand().execute();
-
+        if(Mementos.getInstance().canUndo()) {
+            AppState previousState = Mementos.getInstance().getPreviousState();
+            this.model = previousState.getPerspective();
+            model.setEndPoint(previousState.getStartVal());
+            model.setStartPoint(previousState.getEndVal());
+            previousState.getCommand().changeModel(model);
+            previousState.getCommand().execute();
+        }
     }
 
     @Override

@@ -27,6 +27,23 @@ public class Perspective extends Observable{
         this.scale = scale;
     }
 
+    /**
+     * Constructeur par copy d'attributs
+     * @param p
+     */
+    public Perspective(Perspective p){
+        this.centerPoint = p.centerPoint;
+        this.startPoint = p.startPoint;
+        this.endPoint = p.endPoint;
+        this.xOffset = p.xOffset;
+        this.yOffset = p.yOffset;
+        this.scale = p.scale;
+        this.previousScale = p.previousScale;
+        this.image = p.image;
+        this.at = p.at;
+        this.mouseReleased = p.mouseReleased;
+    }
+
     public Point2D getCenterPoint()
     {
         return centerPoint;
@@ -73,6 +90,14 @@ public class Perspective extends Observable{
     {
         this.image = image;
         super.notifyObservers();
+    }
+
+    public double getXOffset(){
+        return xOffset;
+    }
+
+    public double getYOffset() {
+        return yOffset;
     }
 
     /**
