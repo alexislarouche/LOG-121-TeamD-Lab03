@@ -50,6 +50,8 @@ public class FenetrePerspective extends JFrame implements Observer {
         panneau.addMouseListener(new MouseAdapter() {
 
             public void mousePressed(MouseEvent e) {
+                if(e.getButton() == MouseEvent.BUTTON3)
+                    mouseMenu.setMouseLocation(e.getPoint());
                 perspectiveModel.setMouseReleased(false);
                 // on set la position de la souris lorsqu'on appuie (sans
                 // relacher)
