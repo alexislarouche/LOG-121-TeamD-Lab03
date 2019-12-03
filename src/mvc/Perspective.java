@@ -3,8 +3,11 @@ package mvc;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Point2D;
 import java.awt.image.BufferedImage;
+import java.io.Serializable;
 
-public class Perspective extends Observable{
+public class Perspective extends Observable implements Serializable
+{
+
     private Point2D centerPoint;
     private Point2D startPoint;
     private Point2D endPoint;
@@ -15,7 +18,7 @@ public class Perspective extends Observable{
     private AffineTransform at;
     private boolean mouseReleased;
 
-    public Perspective(){};
+    public Perspective(){}
 
     public Perspective(double x, double y, double scale){
         this.centerPoint = new Point2D.Double(x,y);
@@ -71,10 +74,6 @@ public class Perspective extends Observable{
         this.scale = scale;
     }
 
-    public void setMouseReleased(Boolean mouseStatus){
-        this.mouseReleased = mouseStatus;
-    }
-
     public AffineTransform getAt(){ return  at;}
 
     public void setImage(BufferedImage image)
@@ -89,6 +88,46 @@ public class Perspective extends Observable{
 
     public double getYOffset() {
         return yOffset;
+    }
+
+    public double getxOffset()
+    {
+        return xOffset;
+    }
+
+    public void setxOffset(double xOffset)
+    {
+        this.xOffset = xOffset;
+    }
+
+    public double getyOffset()
+    {
+        return yOffset;
+    }
+
+    public void setyOffset(double yOffset)
+    {
+        this.yOffset = yOffset;
+    }
+
+    public BufferedImage getImage()
+    {
+        return image;
+    }
+
+    public void setAt(AffineTransform at)
+    {
+        this.at = at;
+    }
+
+    public boolean isMouseReleased()
+    {
+        return mouseReleased;
+    }
+
+    public void setMouseReleased(boolean mouseReleased)
+    {
+        this.mouseReleased = mouseReleased;
     }
 
     /**
@@ -155,5 +194,17 @@ public class Perspective extends Observable{
 
         // On envoit l'image et la transformation pour se faire repaint
         setImageWithTransformation(image, at);
+    }
+
+    public void replace(Perspective perspective){
+        this.centerPoint = perspective.getCenterPoint();
+        this.startPoint = perspective.getStartPoint();
+        this.endPoint=perspective.getEndPoint();
+        this.xOffset=perspective.getXOffset();
+        this.yOffset=perspective.getYOffset();
+        this.scale = perspective.getScale();
+        this.previousScale = perspective.getPreviousScale();
+        this.at= perspective.getAt();
+        this.mouseReleased=perspective.mouseReleased;
     }
 }

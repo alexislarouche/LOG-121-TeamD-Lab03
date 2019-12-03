@@ -137,4 +137,8 @@ public class FenetrePerspective extends JFrame implements Observer {
         }
         repaint();
     }
+
+    public void loadPerspective(Perspective perspective){
+        this.perspective = perspective;
+    }
 }

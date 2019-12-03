@@ -1,9 +1,12 @@
 package fenetre;
 
 import command.Command;
+import command.Load;
 import command.LoadImage;
+import command.Save;
 import mvc.BackgroundImage;
 import mvc.Observer;
+import singleton.AppConfig;
 
 import javax.swing.*;
 import java.awt.*;
@@ -16,15 +19,17 @@ public class FenetrePrincipale extends JFrame implements Observer{
 
     private PanneauPrincipal panneau;
     private BackgroundImage bgImage;
+    private AppConfig config;
     private static final String TITRE_FENETRE = "Laboratoire 3 : LOG121";
     private static final Dimension DIMENSION = new Dimension(500, 400);
 
     /**
      * Constructeur de la fenêtre principale de l'application
      */
-    public FenetrePrincipale(int x, int y, BackgroundImage bgImage){
+    public FenetrePrincipale(int x, int y, BackgroundImage bgImage, AppConfig config){
         setTitle(TITRE_FENETRE);
         this.bgImage = bgImage;
+        this.config = config;
         createFenetre(x, y);
     }
 
@@ -32,7 +37,10 @@ public class FenetrePrincipale extends JFrame implements Observer{
         panneau = new PanneauPrincipal();
 
         Command loadImage = new LoadImage(bgImage);
-        BarOutils barreOutils = new BarOutils(loadImage);
+        Command saveConfig = new Save(config);
+        Command loadConfig = new Load(config);
+
+        BarOutils barreOutils = new BarOutils(loadImage, saveConfig, loadConfig);
 
         setLayout(new BorderLayout());
 
@@ -57,4 +65,6 @@ public class FenetrePrincipale extends JFrame implements Observer{
             repaint();
         }
     }
+
+
 }
