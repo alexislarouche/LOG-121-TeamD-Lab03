@@ -16,9 +16,17 @@ public class Undo implements Command
     {
         if(Mementos.getInstance().canUndo()) {
             AppState previousState = Mementos.getInstance().getPreviousState();
+
             this.model = previousState.getPerspective();
-            model.setEndPoint(previousState.getStartVal());
-            model.setStartPoint(previousState.getEndVal());
+            if(!previousState.isZoom()){
+                model.setEndPoint(previousState.getStartVal());
+                model.setStartPoint(previousState.getEndVal());
+            }
+            else{
+                previousState.getCenterVal().setLocation(previousState.getCenterVal().getX() + 8, previousState.getCenterVal().getY());
+                model.setCenterPoint(previousState.getCenterVal());
+                model.setScale(previousState.getPreviousScale());
+            }
             previousState.getCommand().changeModel(model);
             previousState.getCommand().execute();
         }

@@ -14,7 +14,11 @@ public class Mementos
     }
 
     public void setCurrentAppState(AppState appState){
+        if(this.appStates.empty()){
+            appState.initialScale();
+        }
         this.appStates.push(appState);
+        this.undoStates = new Stack<>();
     }
 
     public boolean canUndo(){

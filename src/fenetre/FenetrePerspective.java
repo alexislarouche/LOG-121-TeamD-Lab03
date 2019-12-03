@@ -57,12 +57,7 @@ public class FenetrePerspective extends JFrame implements Observer {
                 perspective.setMouseReleased(true);
                 perspective.setEndPoint(e.getPoint());
                 translateImage.execute();
-//                Perspective copyPerspective = new Perspective(perspective);
-//                Point2D startVal = (Point2D) perspective.getStartPoint().clone();
-//                Point2D endVal = (Point2D) perspective.getEndPoint().clone();
-//                double xOffset = perspective.getXOffset();
-//                double yOffset = perspective.getYOffset();
-                AppState appState = new AppState(perspective, translateImage);
+                AppState appState = new AppState(perspective, translateImage, false);
                 Mementos.getInstance().setCurrentAppState(appState);
             }
 
@@ -100,6 +95,8 @@ public class FenetrePerspective extends JFrame implements Observer {
                     // on set le nouveau facteur de zoom
                     perspective.setScale(newScaleValue);
                     zoomImage.execute();
+                    AppState appState = new AppState(perspective, zoomImage, true);
+                    Mementos.getInstance().setCurrentAppState(appState);
                 }
             }
         });

@@ -15,8 +15,15 @@ public class Redo implements Command
 
             AppState previousState = Mementos.getInstance().getUndoState();
             this.model = previousState.getPerspective();
-            model.setEndPoint(previousState.getEndVal());
-            model.setStartPoint(previousState.getStartVal());
+            if(!previousState.isZoom()) {
+                model.setEndPoint(previousState.getEndVal());
+                model.setStartPoint(previousState.getStartVal());
+            }
+            else {
+                previousState.getCenterVal().setLocation(previousState.getCenterVal().getX() - 8, previousState.getCenterVal().getY());
+                model.setCenterPoint(previousState.getCenterVal());
+                model.setScale(previousState.getScale());
+            }
             previousState.getCommand().changeModel(model);
             previousState.getCommand().execute();
         }

@@ -17,8 +17,8 @@ public class LoadImage implements Command {
     public void execute()
     {
         bgImage.ouvrirImage();
-        AppState appState = new AppState(null,null);
-        Mementos.getInstance().setCurrentAppState(appState);
+//        AppState appState = new AppState(null,null);
+//        Mementos.getInstance().setCurrentAppState(appState);
     }
 
     @Override
