@@ -12,9 +12,9 @@ public class AppEngine
         Perspective p1 = new Perspective();
         Perspective p2 = new Perspective();
 
-        FenetrePrincipale fenetrePrincipale = new FenetrePrincipale(100, 500, bgImage);
-        FenetrePerspective fenetrePerspective1 = new FenetrePerspective("Perspective 1",600, 500, bgImage,p1);
-        FenetrePerspective fenetrePerspective2 = new FenetrePerspective("Perspective 2", 1100,500, bgImage, p2);
+        FenetrePrincipale fenetrePrincipale = new FenetrePrincipale(50, 400, bgImage);
+        FenetrePerspective fenetrePerspective1 = new FenetrePerspective("Perspective 1",550, 400, bgImage,p1);
+        FenetrePerspective fenetrePerspective2 = new FenetrePerspective("Perspective 2", 1050,400, bgImage, p2);
 
         bgImage.addObserver(fenetrePrincipale);
         bgImage.addObserver(fenetrePerspective1);

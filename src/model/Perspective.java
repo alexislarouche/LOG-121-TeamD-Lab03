@@ -110,7 +110,7 @@ public class Perspective extends Observable {
      */
     public void zoomImage() {
         // adjust because of toolbar and blank space between each view
-        double adjustedX =  centerPoint.getX() - 8;
+        double adjustedX =  centerPoint.getX();
         double adjustedY =  centerPoint.getY();
 
         // ratio entre l'ancien facteur et le facteur courant de zoom

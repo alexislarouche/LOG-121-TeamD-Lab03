@@ -23,9 +23,15 @@ public class MouseMenu extends JPopupMenu {
     public MouseMenu(Perspective perspectiveModel, Command zoomCommand) {
         this.perspectiveModel = perspectiveModel;
         this.zoomCommand = zoomCommand;
+
         zoomIn = new JMenuItem("Zoom in");
         zoomIn.addActionListener(menuListener);
         add(zoomIn);
+
+        zoomOut = new JMenuItem("Zoom out");
+        zoomOut.addActionListener(menuListener);
+        add(zoomOut);
+
         setInheritsPopupMenu(true);
     }
 
@@ -35,12 +41,22 @@ public class MouseMenu extends JPopupMenu {
 
     private ActionListener menuListener = new ActionListener() {
         public void actionPerformed(ActionEvent e) {
-            if(e.getActionCommand() == "Zoom in") {
-                perspectiveModel.setCenterPoint(mouseLocation);
-                perspectiveModel.setScale(perspectiveModel.getScale() * 1.5);
-                zoomCommand.execute();
-                AppState appState = new AppState(perspectiveModel, zoomCommand, true);
-                Mementos.getInstance().setCurrentAppState(appState);
+            AppState appState;
+            perspectiveModel.setCenterPoint(mouseLocation);
+
+            switch (e.getActionCommand()) {
+                case "Zoom in" :
+                    perspectiveModel.setScale(perspectiveModel.getScale() * 1.5);
+                    zoomCommand.execute();
+                    appState = new AppState(perspectiveModel, zoomCommand, true);
+                    Mementos.getInstance().setCurrentAppState(appState);
+                    break;
+                case "Zoom out" :
+                    perspectiveModel.setScale(perspectiveModel.getScale() / 1.5);
+                    zoomCommand.execute();
+                    appState = new AppState(perspectiveModel, zoomCommand, true);
+                    Mementos.getInstance().setCurrentAppState(appState);
+                    break;
             }
         }
     };
