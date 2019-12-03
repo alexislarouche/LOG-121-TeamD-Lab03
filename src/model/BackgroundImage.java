@@ -1,4 +1,6 @@
-package mvc;
+package model;
+
+import observer.Observable;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -8,7 +10,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
-public class BackgroundImage extends Observable{
+public class BackgroundImage extends Observable {
     private BufferedImage image;
 
     public BufferedImage getImage()

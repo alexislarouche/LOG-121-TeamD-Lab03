@@ -1,13 +1,12 @@
-package fenetre;
+package view;
 
-import command.Command;
-import command.LoadImage;
-import mvc.BackgroundImage;
-import mvc.Observer;
+import controller.Command;
+import controller.LoadImage;
+import model.BackgroundImage;
+import observer.Observer;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
 
 /**
 Fenêtre principale de l'application

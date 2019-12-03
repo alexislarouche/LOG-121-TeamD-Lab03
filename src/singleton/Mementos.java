@@ -1,5 +1,7 @@
 package singleton;
 
+import app.AppState;
+
 import java.util.Stack;
 
 public class Mementos

@@ -1,6 +1,6 @@
-package command;
+package controller;
 
-import mvc.Perspective;
+import model.Perspective;
 
 public class Zoom implements Command
 {

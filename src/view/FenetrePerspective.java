@@ -1,17 +1,15 @@
-package fenetre;
+package view;
 
-import command.*;
-import mvc.BackgroundImage;
-import mvc.Observer;
-import mvc.Perspective;
-import singleton.AppState;
+import controller.*;
+import model.BackgroundImage;
+import observer.Observer;
+import model.Perspective;
+import app.AppState;
 import singleton.Mementos;
-import singleton.SingletonGestionnaireCommande;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.awt.geom.Point2D;
 
 public class FenetrePerspective extends JFrame implements Observer {
     private PanneauPrincipal panneau;

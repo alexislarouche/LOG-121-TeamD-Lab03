@@ -1,7 +1,7 @@
-package command;
+package controller;
 
-import mvc.Perspective;
-import singleton.AppState;
+import model.Perspective;
+import app.AppState;
 import singleton.Mementos;
 
 public class Redo implements Command

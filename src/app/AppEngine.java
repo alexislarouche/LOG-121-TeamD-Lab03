@@ -1,9 +1,9 @@
-package singleton;
+package app;
 
-import fenetre.FenetrePerspective;
-import fenetre.FenetrePrincipale;
-import mvc.BackgroundImage;
-import mvc.Perspective;
+import view.FenetrePerspective;
+import view.FenetrePrincipale;
+import model.BackgroundImage;
+import model.Perspective;
 
 public class AppEngine
 {
@@ -13,7 +13,7 @@ public class AppEngine
         Perspective p2 = new Perspective();
 
         FenetrePrincipale fenetrePrincipale = new FenetrePrincipale(100, 500, bgImage);
-        FenetrePerspective fenetrePerspective1 = new FenetrePerspective("Perspective 1",600, 500, bgImage,p1);
+        FenetrePerspective fenetrePerspective1 = new FenetrePerspective("Perspective 1",600, 500, bgImage, p1);
         FenetrePerspective fenetrePerspective2 = new FenetrePerspective("Perspective 2", 1100,500, bgImage, p2);
 
         bgImage.addObserver(fenetrePrincipale);

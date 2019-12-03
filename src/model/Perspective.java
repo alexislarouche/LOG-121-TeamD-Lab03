@@ -1,10 +1,12 @@
-package mvc;
+package model;
+
+import observer.Observable;
 
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Point2D;
 import java.awt.image.BufferedImage;
 
-public class Perspective extends Observable{
+public class Perspective extends Observable {
     private Point2D centerPoint;
     private Point2D startPoint;
     private Point2D endPoint;
@@ -15,7 +17,9 @@ public class Perspective extends Observable{
     private AffineTransform at;
     private boolean mouseReleased;
 
-    public Perspective(){};
+    public Perspective(){
+        this.centerPoint = new Point2D.Double(0,0);
+    };
 
     public Perspective(double x, double y, double scale){
         this.centerPoint = new Point2D.Double(x,y);

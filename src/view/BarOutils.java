@@ -1,15 +1,10 @@
-package fenetre;
+package view;
 
 
-import command.Command;
+import controller.Command;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
-import javax.swing.filechooser.FileNameExtensionFilter;
-import javax.swing.filechooser.FileSystemView;
-import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.io.*;
 
 /**
  * Bar de Menu dans la fenêtre principale

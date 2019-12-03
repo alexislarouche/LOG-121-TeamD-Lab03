@@ -1,11 +1,9 @@
-package singleton;
+package app;
 
-import command.Command;
-import mvc.Perspective;
+import controller.Command;
+import model.Perspective;
 
-import java.awt.*;
 import java.awt.geom.Point2D;
-import java.util.Stack;
 
 public class AppState
 {
@@ -21,13 +19,12 @@ public class AppState
     public AppState(Perspective perspective, Command command, boolean isZoom) {
         this.isZoom = isZoom;
         this.perspective = perspective;
+        centerVal = (Point2D) perspective.getCenterPoint().clone();
         if(this.isZoom){
-            centerVal = (Point2D) perspective.getCenterPoint().clone();
             scale = perspective.getScale();
             previousScale = perspective.getPreviousScale();
         }
         else{
-//            if(perspective)
             startVal = (Point2D) perspective.getStartPoint().clone();
             endVal = (Point2D) perspective.getEndPoint().clone();
         }
