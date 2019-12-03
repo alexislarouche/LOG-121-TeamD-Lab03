@@ -10,7 +10,7 @@ public class Perspective extends Observable {
     private Point2D centerPoint;
     private Point2D startPoint;
     private Point2D endPoint;
-    private double  xOffset, yOffset;
+    private double  xOffset = 0, yOffset = 0;
     private double scale = 1;
     private double previousScale = 1;
     private BufferedImage image;
@@ -146,16 +146,17 @@ public class Perspective extends Observable {
 
         // transformation de matrice
         AffineTransform at = new AffineTransform();
-        at.translate(x + xOffset,y + yOffset);
-        at.scale(scale, scale);
+        at.translate(x + xOffset, y + yOffset);
+        //at.scale(scale, scale);
 
         // si la souris est lachée
-        if (mouseReleased){
+        if (mouseReleased) {
             xOffset += x;
             yOffset += y;
         }
 
         // On envoit l'image et la transformation pour se faire repaint
         setImageWithTransformation(image, at);
+
     }
 }

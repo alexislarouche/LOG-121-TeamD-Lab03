@@ -1,6 +1,6 @@
-package fenetre;
+package view;
 
-import command.*;
+import controller.*;
 import model.BackgroundImage;
 import observer.Observer;
 import model.Perspective;
@@ -38,7 +38,7 @@ public class FenetrePerspective extends JFrame implements Observer {
         Command undoChange = new Undo();
         Command redoChange = new Redo();
 
-        mouseMenu = new MouseMenu(perspectiveModel, zoomImage);
+        mouseMenu = new MouseMenu(perspectiveModel, zoomImage, undoChange, redoChange);
         panneau.setComponentPopupMenu(mouseMenu);
         add(panneau, BorderLayout.CENTER);
         setDefaultCloseOperation(EXIT_ON_CLOSE);

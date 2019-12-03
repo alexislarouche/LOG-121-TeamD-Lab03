@@ -1,7 +1,7 @@
-package fenetre;
+package view;
 
-import command.Command;
-import command.LoadImage;
+import controller.Command;
+import controller.LoadImage;
 import model.BackgroundImage;
 import observer.Observer;
 

@@ -1,8 +1,8 @@
-package command;
+package controller;
 
 import model.Perspective;
 
-public class Load implements Command
+public class Save implements Command
 {
     @Override
     public void execute()

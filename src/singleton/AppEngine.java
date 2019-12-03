@@ -1,7 +1,7 @@
 package singleton;
 
-import fenetre.FenetrePerspective;
-import fenetre.FenetrePrincipale;
+import view.FenetrePerspective;
+import view.FenetrePrincipale;
 import model.BackgroundImage;
 import model.Perspective;
 

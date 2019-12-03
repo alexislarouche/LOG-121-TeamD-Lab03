@@ -1,6 +1,6 @@
 package singleton;
 
-import command.Command;
+import controller.Command;
 import model.Perspective;
 
 import java.awt.geom.Point2D;

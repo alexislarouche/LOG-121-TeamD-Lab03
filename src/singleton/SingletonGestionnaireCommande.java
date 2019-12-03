@@ -1,6 +1,6 @@
 package singleton;
 
-import command.Command;
+import controller.Command;
 import java.util.Stack;
 
 /**

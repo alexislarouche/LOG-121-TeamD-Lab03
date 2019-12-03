@@ -1,19 +1,19 @@
-package command;
+package controller;
 
 import model.Perspective;
 
-public class Zoom implements Command
+public class Translate implements Command
 {
     private Perspective model;
 
-    public Zoom(Perspective model){
+    public Translate (Perspective model){
         this.model = model;
     }
 
     @Override
     public void execute()
     {
-        model.zoomImage();
+        model.translateImage();
     }
 
     @Override
