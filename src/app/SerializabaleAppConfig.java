@@ -1,34 +1,27 @@
-package singleton;
+package app;
 
-import mvc.BackgroundImage;
-import mvc.Perspective;
+import com.sun.xml.internal.ws.developer.Serialization;
+import model.Perspective;
 
 import java.io.Serializable;
 
-public class AppConfig
+public class SerializabaleAppConfig implements Serializable
 {
+    @Serialization
     Perspective perspective1;
     Perspective perspective2;
-    BackgroundImage backgroundImage;
+    byte[] backgroundImage;
     String name;
 
-    public AppConfig(){}
+    public SerializabaleAppConfig(){}
 
-    public AppConfig(String name, BackgroundImage backgroundImage, Perspective perspective1, Perspective perspective2){
+    public SerializabaleAppConfig(String name, byte[] backgroundImage, Perspective perspective1, Perspective perspective2){
         this.name = name;
         this.perspective1 = perspective1;
         this.perspective2 = perspective2;
         this.backgroundImage = backgroundImage;
-    }
-
-    public String getName()
-    {
-        return name;
-    }
-
-    public void setName(String name)
-    {
-        this.name = name;
+        this.perspective1.setImage(null);
+        this.perspective2.setImage(null);
     }
 
     public Perspective getPerspective1()
@@ -51,14 +44,23 @@ public class AppConfig
         this.perspective2 = perspective2;
     }
 
-    public BackgroundImage getBackgroundImage()
+    public byte[] getBackgroundImage()
     {
         return backgroundImage;
     }
 
-    public void setBackgroundImage(BackgroundImage backgroundImage)
+    public void setBackgroundImage(byte[] backgroundImage)
     {
         this.backgroundImage = backgroundImage;
     }
 
+    public String getName()
+    {
+        return name;
+    }
+
+    public void setName(String name)
+    {
+        this.name = name;
+    }
 }

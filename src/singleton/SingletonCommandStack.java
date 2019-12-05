@@ -1,13 +1,15 @@
 package singleton;
 
+import app.AppState;
+
 import java.util.Stack;
 
-public class Mementos
+public class SingletonCommandStack
 {
-    private static Mementos instance = new Mementos();
+    private static SingletonCommandStack instance = new SingletonCommandStack();
     private Stack<AppState> appStates = new Stack<>();
     private Stack<AppState> undoStates = new Stack<>();
-    public static Mementos getInstance(){ return instance;}
+    public static SingletonCommandStack getInstance(){ return instance;}
 
     public AppState getCurrentAppState(){
         return this.appStates.peek();

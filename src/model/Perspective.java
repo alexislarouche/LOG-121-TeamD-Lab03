@@ -1,4 +1,6 @@
-package mvc;
+package model;
+
+import observer.Observable;
 
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Point2D;

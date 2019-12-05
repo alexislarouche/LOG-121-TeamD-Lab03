@@ -1,10 +1,8 @@
-package command;
+package controller;
 
-import mvc.Perspective;
-import singleton.AppState;
-import singleton.Mementos;
-
-import java.awt.geom.Point2D;
+import model.Perspective;
+import app.AppState;
+import singleton.SingletonCommandStack;
 
 public class Undo implements Command
 {
@@ -14,8 +12,8 @@ public class Undo implements Command
     @Override
     public void execute()
     {
-        if(Mementos.getInstance().canUndo()) {
-            AppState previousState = Mementos.getInstance().getPreviousState();
+        if(SingletonCommandStack.getInstance().canUndo()) {
+            AppState previousState = SingletonCommandStack.getInstance().getPreviousState();
 
             this.model = previousState.getPerspective();
             if(!previousState.isZoom()){

@@ -1,17 +1,15 @@
-package fenetre;
+package view;
 
-import command.*;
-import mvc.BackgroundImage;
-import mvc.Observer;
-import mvc.Perspective;
-import singleton.AppState;
-import singleton.Mementos;
-import singleton.SingletonGestionnaireCommande;
+import controller.*;
+import model.BackgroundImage;
+import observer.Observer;
+import model.Perspective;
+import app.AppState;
+import singleton.SingletonCommandStack;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.awt.geom.Point2D;
 
 public class FenetrePerspective extends JFrame implements Observer {
     private PanneauPrincipal panneau;
@@ -58,7 +56,7 @@ public class FenetrePerspective extends JFrame implements Observer {
                 perspective.setEndPoint(e.getPoint());
                 translateImage.execute();
                 AppState appState = new AppState(perspective, translateImage, false);
-                Mementos.getInstance().setCurrentAppState(appState);
+                SingletonCommandStack.getInstance().setCurrentAppState(appState);
             }
 
         });
@@ -96,7 +94,7 @@ public class FenetrePerspective extends JFrame implements Observer {
                     perspective.setScale(newScaleValue);
                     zoomImage.execute();
                     AppState appState = new AppState(perspective, zoomImage, true);
-                    Mementos.getInstance().setCurrentAppState(appState);
+                    SingletonCommandStack.getInstance().setCurrentAppState(appState);
                 }
             }
         });

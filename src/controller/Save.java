@@ -1,8 +1,8 @@
-package command;
+package controller;
 
-import mvc.Perspective;
-import singleton.AppConfig;
-import singleton.SerializabaleAppConfig;
+import model.Perspective;
+import app.AppConfig;
+import app.SerializabaleAppConfig;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;

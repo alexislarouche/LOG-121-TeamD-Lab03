@@ -1,8 +1,8 @@
-package command;
+package controller;
 
-import mvc.Perspective;
-import singleton.AppState;
-import singleton.Mementos;
+import model.Perspective;
+import app.AppState;
+import singleton.SingletonCommandStack;
 
 public class Redo implements Command
 {
@@ -11,9 +11,9 @@ public class Redo implements Command
     @Override
     public void execute()
     {
-        if(Mementos.getInstance().canRedo()) {
+        if(SingletonCommandStack.getInstance().canRedo()) {
 
-            AppState previousState = Mementos.getInstance().getUndoState();
+            AppState previousState = SingletonCommandStack.getInstance().getUndoState();
             this.model = previousState.getPerspective();
             if(!previousState.isZoom()) {
                 model.setEndPoint(previousState.getEndVal());

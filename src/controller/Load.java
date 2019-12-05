@@ -1,13 +1,10 @@
-package command;
+package controller;
 
-import com.sun.xml.internal.messaging.saaj.util.ByteInputStream;
-import mvc.BackgroundImage;
-import mvc.Perspective;
-import singleton.AppConfig;
-import singleton.SerializabaleAppConfig;
+import model.Perspective;
+import app.AppConfig;
+import app.SerializabaleAppConfig;
 
 import javax.imageio.ImageIO;
-import javax.security.auth.login.Configuration;
 import java.awt.image.BufferedImage;
 import java.beans.XMLDecoder;
 import java.io.*;
